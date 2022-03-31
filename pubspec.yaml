@@ -31,8 +31,11 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  fluttertoast: ^8.0.7
+  flutter_spinkit: ^5.0.0
   google_fonts: ^2.3.1
   shared_preferences: ^2.0.12
+  progress_dialog_null_safe: ^1.0.7
 
 
   # The following adds the Cupertino Icons font to your application.

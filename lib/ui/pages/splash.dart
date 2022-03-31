@@ -1,5 +1,8 @@
 import 'dart:async';
-import 'package:dawam/utilities/app_local.dart';
+import 'package:dawam/ui/pages/homepage.dart';
+import 'package:dawam/ui/pages/login_page.dart';
+import 'package:dawam/utilities/app_colors.dart';
+import 'package:dawam/utilities/data_store.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:google_fonts/google_fonts.dart';
@@ -20,15 +23,19 @@ class _SplashState extends State<Splash> {
       angle += 0.01;
       setState(() {});
     });
-    // Future.delayed(const Duration(seconds: 2), () async {
-    //   await dataStore.loadJobSettings().then((value) {
-    //     dataStore.loadMouthlyLogs().then((value) {
-    //       Navigator.of(context).pushReplacement(
-    //         MaterialPageRoute(builder: (context) => const HomePage()),
-    //       );
-    //     });
-    //   });
-    // });
+    Future.delayed(const Duration(seconds: 2), () async {
+      await dataStore.loadAuthData().then((authData) {
+        if (authData != null) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+          );
+        }
+      });
+    });
     super.initState();
   }
 
@@ -49,13 +56,7 @@ class _SplashState extends State<Splash> {
                   gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [
-                  // Colors.greenAccent,
-                  // Colors.red,
-                  Colors.blueGrey,
-                  Colors.green,
-                  Colors.greenAccent,
-                ],
+                colors: AppColors.gradientColors,
               )),
               child: Center(
                 child: Column(
@@ -79,13 +80,13 @@ class _SplashState extends State<Splash> {
                               style: GoogleFonts.lobster(
                                 fontSize: 35.0,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                               children: const <TextSpan>[
                                 TextSpan(
                                   text: 'D',
                                   style: TextStyle(
-                                    color: Colors.red,
+                                    color: AppColors.red,
                                     fontSize: 45,
                                   ),
                                 ),
@@ -112,7 +113,7 @@ class _SplashState extends State<Splash> {
                         style: GoogleFonts.slabo27px(
                           fontSize: 15.0,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                       ),
                     ),

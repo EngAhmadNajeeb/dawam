@@ -1,4 +1,5 @@
 import 'package:dawam/ui/pages/splash.dart';
+import 'package:dawam/utilities/app_colors.dart';
 import 'package:dawam/utilities/app_local.dart';
 import 'package:dawam/utilities/data_store.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: AppColors.primary,
       ),
       localizationsDelegates: const [
         AppLocalizationsDelegate(),
