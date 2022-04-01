@@ -7,12 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DataStore {
   static final DataStore _dataStore = DataStore._internal();
   DataStore._internal();
-  // Locale? locale;
   factory DataStore() {
     return _dataStore;
   }
-  String lang = 'en';
-  String baseUrl = "192.168.1.112:8080";
+  String lang = 'ar';
+  String baseUrl = "192.168.1.4:8080";
   ProjectType proType = ProjectType.staging;
   AuthData? authData;
 
@@ -23,7 +22,7 @@ class DataStore {
         baseUrl = "192.168.1.112:8080";
         break;
       case ProjectType.staging:
-        baseUrl = "192.168.1.112:8080";
+        baseUrl = "192.168.1.4:8080";
         break;
       default:
     }

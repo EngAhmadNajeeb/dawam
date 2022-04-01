@@ -1,3 +1,6 @@
+import 'package:dawam/blocs/current_month_bloc.dart';
+import 'package:dawam/models/current_month.dart';
+import 'package:dawam/ui/cards/current_month_card.dart';
 import 'package:dawam/ui/widgets/general_widget.dart';
 import 'package:dawam/utilities/app_colors.dart';
 import 'package:dawam/utilities/app_local.dart';
@@ -13,9 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late ScrollController controller;
+  CurrentMonthBloc bloc = CurrentMonthBloc();
   @override
   void initState() {
     controller = ScrollController();
+    bloc.getCurrentMonth(context);
     WidgetsBinding.instance?.addObserver(this);
     super.initState();
   }
@@ -33,22 +38,23 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    ProgressDialog progressDialog = GeneralWidget.progressDialog(context);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.trans("dawam")),
-        ),
-        backgroundColor: AppColors.pageBackground,
-        body: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () => progressDialog.show(),
-              child: const Text("Show"),
-            ),
-            ElevatedButton(
-                onPressed: () => progressDialog.show(),
-                child: const Text("Hide")),
-          ],
-        ));
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.trans("dawam")),
+      ),
+      backgroundColor: AppColors.pageBackground,
+      body: StreamBuilder<CurrentMonth>(
+        stream: bloc.currentMonthStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return CurrentMonthCard(model: snapshot.data!);
+          }
+          return Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: GeneralWidget.listProgressIndicator(),
+          );
+        },
+      ),
+    );
   }
 }

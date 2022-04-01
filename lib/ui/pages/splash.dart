@@ -26,6 +26,8 @@ class _SplashState extends State<Splash> {
     Future.delayed(const Duration(seconds: 2), () async {
       await dataStore.loadAuthData().then((authData) {
         if (authData != null) {
+          debugPrint("User Id ---------------------------> ${authData.user.id}");
+          debugPrint("User email ---------------------------> ${authData.user.email}");
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const HomePage()),
           );
