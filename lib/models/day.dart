@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dawam/models/entry.dart';
+import 'package:dawam/utilities/app_consts.dart';
 
 class Day {
   int id;
@@ -13,6 +14,11 @@ class Day {
     required this.workingSeconds,
     required this.entries,
   });
+
+  String getDate() {
+    return AppConsts().dayNameFormat.format(DateTime.parse(date)) +
+        AppConsts().ddMMFormat.format(DateTime.parse(date));
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -28,7 +34,8 @@ class Day {
       id: map['id']?.toInt() ?? 0,
       date: map['date'] ?? '',
       workingSeconds: map['workingSeconds']?.toInt() ?? 0,
-      entries: List<Entry>.from(map['entries']?.map((x) => Entry.fromMap(x)) ?? const []),
+      entries: List<Entry>.from(
+          map['entries']?.map((x) => Entry.fromMap(x)) ?? const []),
     );
   }
 

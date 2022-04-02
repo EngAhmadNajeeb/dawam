@@ -1,6 +1,9 @@
 import 'package:dawam/models/current_month.dart';
+import 'package:dawam/providers/api_entry.dart';
 import 'package:dawam/providers/api_months.dart';
+import 'package:dawam/ui/widgets/general_widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CurrentMonthBloc {
@@ -8,27 +11,27 @@ class CurrentMonthBloc {
 
   get currentMonthStream => _currentMonthController.stream;
 
-  final _isLoadingController = PublishSubject<bool>();
-
-  get isLoadingStream => _isLoadingController.stream;
-
-  getCurrentMonth(BuildContext context) {
-    _isLoadingController.sink.add(true);
-    ApiMonths(context).getCurrentMonth().then((webSer) {
+  Future<void> getCurrentMonth(BuildContext context) async {
+    await ApiMonths(context).getCurrentMonth().then((webSer) {
       if (webSer != null) {
-        if (!_currentMonthController.isClosed) {
-          _currentMonthController.sink.add(
-              CurrentMonth.fromMap(Map<String, dynamic>.from(webSer.data)));
+        _currentMonthController.sink
+            .add(CurrentMonth.fromMap(Map<String, dynamic>.from(webSer.data)));
+      }
+    });
+  }
+
+  signInput(BuildContext context, bool isInput) {
+    ProgressDialog progressDialog = GeneralWidget.progressDialog(context);
+    progressDialog.show().then((value) {
+      ApiEntry(context).signInput(isInput).then((webSer) {
+        if (webSer != null) {
+          getCurrentMonth(context).then((_) => progressDialog.hide());
         }
-      }
-      if (!_isLoadingController.isClosed) {
-        _isLoadingController.sink.add(false);
-      }
+      });
     });
   }
 
   void dispose() {
     _currentMonthController.close();
-    _isLoadingController.close();
   }
 }

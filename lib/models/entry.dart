@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dawam/utilities/app_consts.dart';
+
 class Entry {
   int id;
   String date;
@@ -9,6 +11,11 @@ class Entry {
     required this.date,
     required this.isInput,
   });
+  
+  String getTime() {
+    return AppConsts().timeFormat.format(DateTime.parse(date)) +
+        AppConsts().h12Format.format(DateTime.parse(date));
+  }
 
   Map<String, dynamic> toMap() {
     return {

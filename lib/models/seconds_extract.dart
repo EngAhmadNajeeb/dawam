@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:dawam/utilities/app_local.dart';
 
 class SecondsExtract {
@@ -13,8 +11,7 @@ class SecondsExtract {
     seconds = (totalSeconds.abs() % 3600) % 60;
   }
 
-  // @override
-  String toString1(context) {
+  String toStringWithType(context) {
     return "$hours" +
         AppLocalizations.of(context)!.trans('hour') +
         " : $minutes" +
@@ -23,7 +20,8 @@ class SecondsExtract {
         AppLocalizations.of(context)!.trans('seconds');
   }
 
-  String toString2() {
+  @override
+  String toString() {
     return "$hours : $minutes : $seconds";
   }
 }

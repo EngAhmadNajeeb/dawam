@@ -6,4 +6,5 @@ class ApiConstants {
   static String login = _suffix + "login";
   static String months = _suffix + "months";
   static String current = months + "/current";
+  static String entries = _suffix + "entries";
 }

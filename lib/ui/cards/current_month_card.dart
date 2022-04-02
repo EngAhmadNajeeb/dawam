@@ -1,23 +1,21 @@
 import 'dart:async';
 import 'package:dawam/models/seconds_extract.dart';
 import 'package:dawam/utilities/app_local.dart';
-import 'package:dawam/utilities/data_store.dart';
 import 'package:flutter/material.dart';
 import 'package:dawam/models/current_month.dart';
 
 class CurrentMonthCard extends StatefulWidget {
   final CurrentMonth model;
-  CurrentMonthCard({
+  const CurrentMonthCard({
     Key? key,
     required this.model,
   }) : super(key: key);
-  final _CurrentMonthCardState state = _CurrentMonthCardState();
   @override
-  // ignore: no_logic_in_create_state
-  _CurrentMonthCardState createState() => state;
+  _CurrentMonthCardState createState() => _CurrentMonthCardState();
 }
 
-class _CurrentMonthCardState extends State<CurrentMonthCard> {
+class _CurrentMonthCardState extends State<CurrentMonthCard>
+    with WidgetsBindingObserver {
   Timer? timer;
   late SecondsExtract todayFlowTime;
   late SecondsExtract workingTime;
@@ -26,25 +24,39 @@ class _CurrentMonthCardState extends State<CurrentMonthCard> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+    setTimer();
     isOverTime = widget.model.month.flowWorkingSeconds >= 0;
+    workingTime = SecondsExtract(widget.model.month.workingSeconds);
+    flowWorkingTime = SecondsExtract(widget.model.month.flowWorkingSeconds);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setTimer();
+    } else {
+      timer?.cancel();
+    }
+  }
+
+  setTimer() {
     todayFlowTime = SecondsExtract(widget.model.workingSecondsTody);
     if (widget.model.lastEntryTody?.isInput ?? false) {
       timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
         int over = DateTime.now()
             .difference(DateTime.parse(widget.model.lastEntryTody!.date))
             .inSeconds;
-
         todayFlowTime = SecondsExtract(widget.model.workingSecondsTody + over);
         setState(() {});
       });
-    } else {}
-    workingTime = SecondsExtract(widget.model.month.workingSeconds);
-    flowWorkingTime = SecondsExtract(widget.model.month.flowWorkingSeconds);
+    }
   }
 
   @override
   void dispose() {
     timer?.cancel();
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 
@@ -64,7 +76,7 @@ class _CurrentMonthCardState extends State<CurrentMonthCard> {
                   Text(AppLocalizations.of(context)!
                       .trans("elapsed_time_today")),
                   Text(
-                    todayFlowTime.toString2(),
+                    todayFlowTime.toString(),
                     textDirection: TextDirection.ltr,
                     style: const TextStyle(
                       fontSize: 50,
@@ -102,7 +114,7 @@ class _CurrentMonthCardState extends State<CurrentMonthCard> {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  flowWorkingTime.toString2(),
+                  flowWorkingTime.toString(),
                   style: TextStyle(
                     color: isOverTime ? Colors.blue : Colors.red,
                     fontWeight: FontWeight.bold,
@@ -120,7 +132,7 @@ class _CurrentMonthCardState extends State<CurrentMonthCard> {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  workingTime.toString1(context),
+                  workingTime.toStringWithType(context),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
