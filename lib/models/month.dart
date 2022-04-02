@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dawam/models/day.dart';
+import 'package:dawam/utilities/app_consts.dart';
 
 class Month {
   int id;
@@ -19,6 +20,13 @@ class Month {
     required this.days,
     required this.currentMonth,
   });
+  String getMonthName() {
+    return AppConsts().monthNameFormat.format(DateTime.parse(date));
+  }
+
+  String getYear() {
+    return AppConsts.yearFormat.format(DateTime.parse(date));
+  }
 
   Map<String, dynamic> toMap() {
     return {

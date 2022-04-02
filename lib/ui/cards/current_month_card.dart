@@ -66,40 +66,65 @@ class _CurrentMonthCardState extends State<CurrentMonthCard>
       color: Colors.greenAccent,
       margin: const EdgeInsets.all(10.0),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(5.0),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Column(
-                children: [
-                  Text(AppLocalizations.of(context)!
-                      .trans("elapsed_time_today")),
-                  Text(
-                    todayFlowTime.toString(),
-                    textDirection: TextDirection.ltr,
+            Stack(
+              children: [
+                Align(
+                  alignment: AlignmentDirectional.topStart,
+                  child: Text(
+                    widget.model.month.getMonthName(),
                     style: const TextStyle(
-                      fontSize: 50,
                       fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      color: Colors.deepOrange,
                     ),
                   ),
-                ],
-              ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional.topEnd,
+                  child: Text(
+                    widget.model.month.getYear(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      color: Colors.deepOrange,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Text(AppLocalizations.of(context)!
+                          .trans("elapsed_time_today")),
+                      Text(
+                        todayFlowTime.toString(),
+                        textDirection: TextDirection.ltr,
+                        style: const TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Text(
-                    "${AppLocalizations.of(context)!.trans("required_working_hours")} ()",
+                    AppLocalizations.of(context)!
+                        .trans("required_working_hours"),
                   ),
                 ),
                 const SizedBox(width: 10),
                 Text(
                   "${widget.model.month.requiredWorkingHours}",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -109,7 +134,9 @@ class _CurrentMonthCardState extends State<CurrentMonthCard>
               children: [
                 Expanded(
                   child: Text(
-                    "${AppLocalizations.of(context)!.trans(isOverTime ? "overtime_working_hours_until_yesterday" : "uncompleted_working_hours_until_yesterday")} ()",
+                    AppLocalizations.of(context)!.trans(isOverTime
+                        ? "overtime_working_hours_until_yesterday"
+                        : "uncompleted_working_hours_until_yesterday"),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -127,7 +154,8 @@ class _CurrentMonthCardState extends State<CurrentMonthCard>
               children: [
                 Expanded(
                   child: Text(
-                    "${AppLocalizations.of(context)!.trans("completed_working_hours_until_today")} ()",
+                    AppLocalizations.of(context)!
+                        .trans("completed_working_hours_until_today"),
                   ),
                 ),
                 const SizedBox(width: 10),
