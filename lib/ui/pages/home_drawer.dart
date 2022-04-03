@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
 import 'package:dawam/main.dart';
 import 'package:dawam/ui/pages/about_app.dart';
 import 'package:dawam/ui/pages/all_recordings.dart';
+import 'package:dawam/ui/pages/salary_calculator.dart';
 import 'package:dawam/utilities/app_local.dart';
 import 'package:dawam/utilities/data_store.dart';
-import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({Key? key}) : super(key: key);
@@ -13,35 +16,55 @@ class HomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.trans("setting")),
-        ),
         body: Column(
           children: [
-
+            UserAccountsDrawerHeader(
+              accountName: Text(dataStore.authData!.user.fullName),
+              accountEmail: Text(dataStore.authData!.user.email),
+              currentAccountPicture: Container(
+                  margin: const EdgeInsets.all(7),
+                  child: Hero(
+                    tag: 'profilePic',
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(
+                          backgroundColor: Colors.white,
+                        ),
+                        imageUrl: "dataStore.user.picture",
+                        errorWidget: (context, url, error) => const Image(
+                          image: AssetImage(
+                            'assets/images/man_placeholder.png',
+                          ),
+                        ),
+                      ),
+                    ),
+                  )),
+            ),
             // InkWell(
             //   highlightColor: Colors.grey,
             //   onTap: () {
             //     Navigator.pop(context);
             //     Navigator.push(
             //       context,
-            //       MaterialPageRoute(
-            //           builder: (context) => const SalaryCalculator()),
+            //       MaterialPageRoute(builder: (context) => const JobSettings()),
             //     );
             //   },
             //   child: ListTile(
             //     leading: Icon(
-            //       Icons.calculate,
+            //       Icons.work,
             //       color: Colors.grey[600],
-            //       // color: AppConstants.lightAccent,
             //       size: 25,
             //     ),
             //     title: Text(
-            //       AppLocalizations.of(context)!.trans("salary_calculator"),
+            //       AppLocalizations.of(context)!.trans("job_settings"),
             //       style: const TextStyle(fontSize: 18),
             //     ),
             //   ),
             // ),
+
             InkWell(
               highlightColor: Colors.grey,
               onTap: () async {
@@ -65,27 +88,30 @@ class HomeDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            // InkWell(
-            //   highlightColor: Colors.grey,
-            //   onTap: () {
-            //     Navigator.pop(context);
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const JobSettings()),
-            //     );
-            //   },
-            //   child: ListTile(
-            //     leading: Icon(
-            //       Icons.work,
-            //       color: Colors.grey[600],
-            //       size: 25,
-            //     ),
-            //     title: Text(
-            //       AppLocalizations.of(context)!.trans("job_settings"),
-            //       style: const TextStyle(fontSize: 18),
-            //     ),
-            //   ),
-            // ),
+            InkWell(
+              highlightColor: Colors.grey,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SalaryCalculator(),
+                  ),
+                );
+              },
+              child: ListTile(
+                leading: Icon(
+                  Icons.calculate,
+                  color: Colors.grey[600],
+                  // color: AppConstants.lightAccent,
+                  size: 25,
+                ),
+                title: Text(
+                  AppLocalizations.of(context)!.trans("salary_calculator"),
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
             InkWell(
               highlightColor: Colors.grey,
               onTap: () {
@@ -111,7 +137,7 @@ class HomeDrawer extends StatelessWidget {
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
-            ),  
+            ),
             InkWell(
               highlightColor: Colors.grey,
               onTap: () {

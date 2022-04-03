@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 class MonthsBloc {
   List<Month> months = [];
-  int page = 1;
+  int page = 0; 
   bool isLast = false;
   final _monthsController = PublishSubject<List<Month>>();
   get monthStream => _monthsController.stream;

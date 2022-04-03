@@ -7,6 +7,7 @@ import 'package:dawam/ui/pages/home_drawer.dart';
 import 'package:dawam/ui/widgets/general_widget.dart';
 import 'package:dawam/utilities/app_colors.dart';
 import 'package:dawam/utilities/app_local.dart';
+import 'package:dawam/utilities/data_store.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -19,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   CurrentMonthBloc bloc = CurrentMonthBloc();
+  CurrentMonth? current;
   @override
   void initState() {
     bloc.getCurrentMonth(context);
@@ -43,6 +45,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         stream: bloc.currentMonthStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            dataStore.current = snapshot.data!.month;
             return Stack(
               children: [
                 Column(

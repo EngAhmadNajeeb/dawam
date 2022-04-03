@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dawam/models/auth_data.dart';
+import 'package:dawam/models/month.dart';
 import 'package:dawam/utilities/enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,10 +11,11 @@ class DataStore {
   factory DataStore() {
     return _dataStore;
   }
-  String lang = 'ar';
+  String lang = 'en';
   String baseUrl = "192.168.1.4:8080";
   ProjectType proType = ProjectType.staging;
   AuthData? authData;
+  Month? current;
 
   setProjectType(ProjectType type) {
     proType = type;
