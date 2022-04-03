@@ -3,6 +3,7 @@ import 'package:dawam/blocs/current_month_bloc.dart';
 import 'package:dawam/models/current_month.dart';
 import 'package:dawam/ui/cards/current_month_card.dart';
 import 'package:dawam/ui/cards/day_logs_card.dart';
+import 'package:dawam/ui/pages/home_drawer.dart';
 import 'package:dawam/ui/widgets/general_widget.dart';
 import 'package:dawam/utilities/app_colors.dart';
 import 'package:dawam/utilities/app_local.dart';
@@ -126,6 +127,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           );
         },
       ),
+      drawer: const HomeDrawer(),
     );
   }
 }

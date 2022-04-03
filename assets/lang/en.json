@@ -12,6 +12,8 @@
   "seconds": "s",
   "elapsed_time_today": "Elapsed time today",
   "required_working_hours": "Required working hours",
+  "overtime_working_hours": "Overtime working hours",
+  "uncompleted_working_hours": "Uncompleted Working hours",
   "overtime_working_hours_until_yesterday": "Overtime working hours until yesterday",
   "uncompleted_working_hours_until_yesterday": "Uncompleted Working hours until yesterday",
   "completed_working_hours_until_today": "Completed working hours until today",

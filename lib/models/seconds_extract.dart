@@ -11,13 +11,20 @@ class SecondsExtract {
     seconds = (totalSeconds.abs() % 3600) % 60;
   }
 
-  String toStringWithType(context) {
+  String toStringWithType1(context) {
     return "$hours" +
         AppLocalizations.of(context)!.trans('hour') +
         " : $minutes" +
         AppLocalizations.of(context)!.trans('minute') +
         " : $seconds" +
         AppLocalizations.of(context)!.trans('seconds');
+  }
+
+  String toStringWithType2(context) {
+    return "$hours" +
+        AppLocalizations.of(context)!.trans('hour') +
+        " : $minutes" +
+        AppLocalizations.of(context)!.trans('minute');
   }
 
   @override

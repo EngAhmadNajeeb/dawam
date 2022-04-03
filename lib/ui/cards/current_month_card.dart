@@ -141,7 +141,7 @@ class _CurrentMonthCardState extends State<CurrentMonthCard>
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  flowWorkingTime.toString(),
+                  flowWorkingTime.toStringWithType1(context),
                   style: TextStyle(
                     color: isOverTime ? Colors.blue : Colors.red,
                     fontWeight: FontWeight.bold,
@@ -160,7 +160,7 @@ class _CurrentMonthCardState extends State<CurrentMonthCard>
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  workingTime.toStringWithType(context),
+                  workingTime.toStringWithType1(context),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],

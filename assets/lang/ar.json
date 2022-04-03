@@ -12,6 +12,8 @@
   "seconds": "ثا",
   "elapsed_time_today": "الوقت المُنجز اليوم",
   "required_working_hours": "ساعات العمل المطلوبة",
+  "overtime_working_hours": "ساعات العمل الاضافية",
+  "uncompleted_working_hours": "ساعات العمل غير المُنجزة",
   "overtime_working_hours_until_yesterday": "ساعات العمل الاضافية حتى البارحة",
   "uncompleted_working_hours_until_yesterday": "ساعات العمل غير المُنجزة حتى البارحة",
   "completed_working_hours_until_today": "ساعات العمل المُنجزة حتى اليوم",

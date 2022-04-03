@@ -28,6 +28,11 @@ class Month {
     return AppConsts.yearFormat.format(DateTime.parse(date));
   }
 
+  String getDate() {
+    return AppConsts().monthNameFormat.format(DateTime.parse(date)) +
+        AppConsts.mmyyyyFormat.format(DateTime.parse(date));
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

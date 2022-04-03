@@ -36,7 +36,7 @@ class DayLogsCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          SecondsExtract(day.workingSeconds).toStringWithType(context),
+                          SecondsExtract(day.workingSeconds).toStringWithType1(context),
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
