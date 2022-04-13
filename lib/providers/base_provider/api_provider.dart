@@ -30,10 +30,10 @@ class ApiProvider {
 
   Uri getUri(String target, [Map? queryParameters]) {
     if (queryParameters != null) {
-      return Uri.http(ApiConstants.authority, target,
+      return Uri.http(ApiConstants().authority, target,
           queryParameters as Map<String, dynamic>?);
     } else {
-      return Uri.http(ApiConstants.authority, target);
+      return Uri.http(ApiConstants().authority, target);
     }
   }
 

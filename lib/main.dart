@@ -2,12 +2,11 @@ import 'package:dawam/ui/pages/splash.dart';
 import 'package:dawam/utilities/app_colors.dart';
 import 'package:dawam/utilities/app_local.dart';
 import 'package:dawam/utilities/data_store.dart';
-import 'package:dawam/utilities/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  dataStore.setProjectType(ProjectType.production);
+  // dataStore.setProjectType(ProjectType.production);
   runApp(const MyApp());
 }
 

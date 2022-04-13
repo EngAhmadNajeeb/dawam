@@ -18,19 +18,18 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class _HomePageState extends State<HomePage> {
   CurrentMonthBloc bloc = CurrentMonthBloc();
-  CurrentMonth? current;
+
   @override
   void initState() {
     bloc.getCurrentMonth(context);
-    WidgetsBinding.instance?.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    bloc.dispose();
     super.dispose();
   }
 
@@ -130,7 +129,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           );
         },
       ),
-      drawer: const HomeDrawer(),
+      drawer: HomeDrawer(),
     );
   }
 }

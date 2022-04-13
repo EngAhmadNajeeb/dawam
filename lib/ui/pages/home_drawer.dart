@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:dawam/main.dart';
@@ -10,10 +11,11 @@ import 'package:dawam/utilities/app_local.dart';
 import 'package:dawam/utilities/data_store.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({Key? key}) : super(key: key);
-
+  HomeDrawer({Key? key}) : super(key: key);
+  final TextEditingController ipController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    ipController.text = "192.168.1.1";
     return Drawer(
       child: Scaffold(
         body: Column(
@@ -43,28 +45,6 @@ class HomeDrawer extends StatelessWidget {
                     ),
                   )),
             ),
-            // InkWell(
-            //   highlightColor: Colors.grey,
-            //   onTap: () {
-            //     Navigator.pop(context);
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const JobSettings()),
-            //     );
-            //   },
-            //   child: ListTile(
-            //     leading: Icon(
-            //       Icons.work,
-            //       color: Colors.grey[600],
-            //       size: 25,
-            //     ),
-            //     title: Text(
-            //       AppLocalizations.of(context)!.trans("job_settings"),
-            //       style: const TextStyle(fontSize: 18),
-            //     ),
-            //   ),
-            // ),
-
             InkWell(
               highlightColor: Colors.grey,
               onTap: () async {
@@ -157,6 +137,28 @@ class HomeDrawer extends StatelessWidget {
                 title: Text(
                   AppLocalizations.of(context)!.trans("about_app"),
                   style: const TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+            Card(
+              child: TextField(
+                controller: ipController,
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))
+                ],
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                onSubmitted: (str) {
+                  dataStore.baseUrl = str + ":8080";
+                  MyApp.restartApp(context);
+                },
+                decoration: const InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.green),
+                  ),
                 ),
               ),
             ),
