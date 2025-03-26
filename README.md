@@ -38,7 +38,7 @@ Dawam is a mobile app designed to help you manage and track your daily work hour
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
